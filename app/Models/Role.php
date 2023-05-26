@@ -10,6 +10,8 @@ class Role extends Model
     use HasFactory;
     public $timestamps = false;
 
+    const PATH_ICON='/storage/app/public/roles/';
+
     protected $fillable = [
         'name',
         'text',
