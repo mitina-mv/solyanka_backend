@@ -19,7 +19,7 @@ return new class extends Migration
                 ->constrained('users');
             $table->string('text');
             $table->string('icon');
-            $table->boolean('isChoice');
+            $table->boolean('isChoice')->default(false);
 
         });
     }
