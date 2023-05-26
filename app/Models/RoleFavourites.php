@@ -12,8 +12,7 @@ class RoleFavourites extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name',
-        'icon',
+        'role_id',
         'user_id',
     ];
 }
