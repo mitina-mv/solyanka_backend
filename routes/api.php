@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\RoleFavouritesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,7 @@ Route::group(['middleware' => 'web'], function() {
         // Route::post('/{id}', [ChatController::class, 'update']);
         Route::delete('/{id}', [ChatController::class, 'destroy']);
     });
+
     // CRUD roles
     Route::group(['prefix' => 'role'], function() {
         Route::get('/', [RoleController::class, 'list']);
@@ -39,6 +41,14 @@ Route::group(['middleware' => 'web'], function() {
             Route::post('/create', [RoleController::class, 'create']);
             Route::delete('/{id}', [RoleController::class, 'destroy']);
         });
+    });
+
+    // добавление роли в избранное 
+    Route::group(['prefix' => 'user-role', 'middleware' => 'auth'], function() {
+        Route::get('/', [RoleFavouritesController::class, 'list']);
+
+        Route::post('/{id}', [RoleFavouritesController::class, 'create']);
+        Route::delete('/{id}', [RoleFavouritesController::class, 'destroy']);
     });
 
 });

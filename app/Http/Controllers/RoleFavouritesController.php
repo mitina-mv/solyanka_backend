@@ -13,17 +13,26 @@ class RoleFavouritesController extends Controller
     public function list()
     {
         $user = Auth::user();
+
         $rolesFavourites = RoleFavourites::where([
             'user_id' => $user->id
-        ])->select('id')->pluck('id');
-
-        $roles = Role::where([
-            'user_id' => $user->id,
-            'role_id' => $rolesFavourites
-        ]);
+        ])->get()->pluck('role_id')->all();
+        
+        $roles = Role::whereIn('id', $rolesFavourites)
+        ->get();
 
         return response()->json([
             $roles,
         ], Response::HTTP_OK);
+    }
+
+    public function create($id)
+    {
+        # code...
+    }
+
+    public function destroy($id)
+    {
+        # code...
     }
 }
