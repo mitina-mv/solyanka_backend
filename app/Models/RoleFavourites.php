@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class RoleFavourites extends Model
 {
     use HasFactory;
+    
+    public $timestamps = false;
+
+    protected $fillable = [
+        'role_id',
+        'user_id',
+    ];
 }
