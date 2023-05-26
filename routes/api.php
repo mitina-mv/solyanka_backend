@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +21,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'chat'], function() {
     Route::get('/', [ChatController::class, 'list']);
-    Route::get('/create', [ChatController::class, 'create']);
+    Route::post('/create', [ChatController::class, 'create']);
     Route::get('/{id}', [ChatController::class, 'read']);
     // Route::post('/{id}', [ChatController::class, 'update']);
     Route::delete('/{id}', [ChatController::class, 'destroy']);
