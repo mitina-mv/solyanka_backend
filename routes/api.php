@@ -19,10 +19,15 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix' => 'chat'], function() {
-    Route::get('/', [ChatController::class, 'list']);
-    Route::post('/create', [ChatController::class, 'create']);
-    Route::get('/{id}', [ChatController::class, 'read']);
-    // Route::post('/{id}', [ChatController::class, 'update']);
-    Route::delete('/{id}', [ChatController::class, 'destroy']);
+Route::group(['middleware' => 'web'], function() {
+    // CRUD chats
+    Route::group(['prefix' => 'chat', 'middleware' => 'web'], function() {
+        Route::get('/', [ChatController::class, 'list']);
+        Route::post('/create', [ChatController::class, 'create']);
+        Route::get('/{id}', [ChatController::class, 'read']);
+        // Route::post('/{id}', [ChatController::class, 'update']);
+        Route::delete('/{id}', [ChatController::class, 'destroy']);
+    });
+
 });
+
