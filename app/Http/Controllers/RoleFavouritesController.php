@@ -12,8 +12,8 @@ class RoleFavouritesController extends Controller
 {
     public function list()
     {
-        // $user = Auth::user();
-        dd($user = auth('middleware')->user());
+        $user = Auth::user();
+        dd($user);
         if(!$user)
         {
             return response()->json([
