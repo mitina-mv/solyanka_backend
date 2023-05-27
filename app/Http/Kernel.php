@@ -36,15 +36,15 @@ class Kernel extends HttpKernel
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
-            AddCorsHeaders::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            AddCorsHeaders::class,
         ],
 
         'api' => [
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
-            AddCorsHeaders::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            AddCorsHeaders::class,
         ],
         'auth' => [
             AddCorsHeaders::class,
