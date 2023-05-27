@@ -13,6 +13,13 @@ class RoleFavouritesController extends Controller
     public function list()
     {
         $user = Auth::user();
+        if(!$user)
+        {
+            return response()->json([
+                'status' => 'error',
+                'message' => "Вы не авторизованы!"
+            ], Response::HTTP_BAD_REQUEST);
+        }
 
         $rolesFavourites = RoleFavourites::where([
             'user_id' => $user->id
