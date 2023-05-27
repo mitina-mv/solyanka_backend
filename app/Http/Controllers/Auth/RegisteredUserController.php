@@ -49,10 +49,10 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
-
+        session()->save();
         return response()->json([
-            'user' => $user,
-            'message' => "Пользователь успешно зарегистирован!"
-        ], HttpFoundationResponse::HTTP_OK);
+            'user' => Auth::user(),
+            'laravel_session' => $request->session()->get('_token')
+         ], Response::HTTP_OK);
     }
 }

@@ -18,11 +18,13 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+        session()->save();
 
-        return response()->noContent();
-        // return response()->json([
-        //     'user' => Auth::user(),
-        //  ], Response::HTTP_OK);
+        // return response()->noContent();
+        return response()->json([
+            'user' => Auth::user(),
+            'laravel_session' => $request->session()->get('_token')
+         ], Response::HTTP_OK);
     }
 
     /**
