@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\RequestController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RoleFavouritesController;
 use Illuminate\Http\Request;
@@ -51,5 +52,11 @@ Route::group(['middleware' => 'web'], function() {
         Route::delete('/{id}', [RoleFavouritesController::class, 'destroy']);
     });
 
+    Route::group(['prefix' => 'request'], function() {
+        Route::post('/', [RequestController::class, 'create']);
+
+        // Route::post('/{id}', [RoleFavouritesController::class, 'create']);
+        // Route::delete('/{id}', [RoleFavouritesController::class, 'destroy']);
+    });
 });
 
