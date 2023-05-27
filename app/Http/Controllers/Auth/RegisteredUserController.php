@@ -52,7 +52,6 @@ class RegisteredUserController extends Controller
         session()->save();
         return response()->json([
             'user' => Auth::user(),
-            'laravel_session' => $request->session()->get('_token')
          ], Response::HTTP_OK);
     }
 }

@@ -22,8 +22,7 @@ class AuthenticatedSessionController extends Controller
 
         // return response()->noContent();
         return response()->json([
-            'user' => Auth::user(),
-            'laravel_session' => $request->session()->get('_token')
+            'user' => Auth::user()
          ], Response::HTTP_OK);
     }
 
