@@ -20,4 +20,9 @@ class Chat extends Model
         'icon',
         'user_id',
     ];
+
+    public function history()
+    {
+        return $this->hasMany(Request::class, 'chat_id', 'id')->get();
+    }
 }
