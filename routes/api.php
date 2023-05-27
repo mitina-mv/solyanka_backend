@@ -31,7 +31,7 @@ Route::group(['prefix' => 'request'], function() {
 
 Route::group(['middleware' => 'web'], function() {
     // CRUD chats
-    Route::group(['prefix' => 'chat'], function() {
+    Route::group(['prefix' => 'chat', 'middleware' => 'auth'], function() {
         Route::get('/', [ChatController::class, 'list']);
         Route::post('/create', [ChatController::class, 'create']);
         Route::get('/{id}', [ChatController::class, 'read']);
@@ -40,15 +40,11 @@ Route::group(['middleware' => 'web'], function() {
     });
 
     // CRUD roles
-    Route::group(['prefix' => 'role'], function() {
+    Route::group(['prefix' => 'role', 'middleware' => 'auth'], function() {
         Route::get('/', [RoleController::class, 'list']);
         Route::get('/{id}', [RoleController::class, 'read']);
-
-        // доступен для авторизованных пользователей
-        Route::group(['middleware' => 'auth'], function() {
-            Route::post('/create', [RoleController::class, 'create']);
-            Route::delete('/{id}', [RoleController::class, 'destroy']);
-        });
+        Route::post('/create', [RoleController::class, 'create']);
+        Route::delete('/{id}', [RoleController::class, 'destroy'])
     });
 
     // добавление роли в избранное 
