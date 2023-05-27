@@ -10,8 +10,9 @@ class Request extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'icon',
-        'user_id',
+        'chat_id',
+        'role_id',
+        'question',
+        'answer',
     ];
 }

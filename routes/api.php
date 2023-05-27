@@ -22,6 +22,12 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+// для запросов неавторизованных пользователей
+Route::group(['prefix' => 'request'], function() {
+    Route::post('/', [RequestController::class, 'create']);
+});
+
 Route::group(['middleware' => 'web'], function() {
     // CRUD chats
     Route::group(['prefix' => 'chat'], function() {
@@ -53,10 +59,11 @@ Route::group(['middleware' => 'web'], function() {
     });
 
     Route::group(['prefix' => 'request'], function() {
-        Route::post('/', [RequestController::class, 'create']);
+        Route::post('/{chat_id}', [RequestController::class, 'create']);
+    });
 
         // Route::post('/{id}', [RoleFavouritesController::class, 'create']);
         // Route::delete('/{id}', [RoleFavouritesController::class, 'destroy']);
-    });
+    // });
 });
 
