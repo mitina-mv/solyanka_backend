@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ChatCreateRequest;
 use App\Models\Chat;
+use App\Models\Request as ModelsRequest;
 use Exception;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
@@ -48,8 +49,14 @@ class ChatController extends Controller
             return response()->json($chat, HttpFoundationResponse::HTTP_BAD_REQUEST);
         } 
 
+        // получаем все сообщения чата по его id
+        $requests = ModelsRequest::where([
+            'chat_id' => $chat->id
+        ])->select('question', 'answer')->orderBy('created_at', 'asc')->get();
+
         return response()->json([
-            $chat,
+            'chat' => $chat,
+            'history' => $requests
         ], HttpFoundationResponse::HTTP_OK);
     }
 
