@@ -11,7 +11,7 @@ class Chat extends Model
     use HasFactory;
     use SoftDeletes;
 
-    const PATH_ICON = '/storage/app/public/chats/';
+    const PATH_ICON = '/storage/chats/';
 
     public $timestamps = false;
 
