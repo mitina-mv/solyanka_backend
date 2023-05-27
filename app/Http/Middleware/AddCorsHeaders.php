@@ -22,6 +22,7 @@ class AddCorsHeaders
         $response->headers->set('Access-Control-Allow-Credentials', 'true');
         $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
         $response->headers->set('Access-Control-Allow-Headers', '*');
+        $response->headers->set('Access-Control-Expose-Headers', 'Set-Cookie');
     
         return $response;
     }
