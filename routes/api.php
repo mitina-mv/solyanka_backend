@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RoleFavouritesController;
@@ -60,6 +61,11 @@ Route::group(['middleware' => 'web'], function() {
 
     Route::group(['prefix' => 'request'], function() {
         Route::post('/{chat_id}', [RequestController::class, 'create']);
+    });
+
+    Route::group(['prefix' => 'profile'], function() {
+        Route::get('/{id}', [UserController::class, 'read']);
+        Route::post('/{id}', [UserController::class, 'update']);
     });
 
         // Route::post('/{id}', [RoleFavouritesController::class, 'create']);
