@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Chat;
 use App\Models\User;
 use Exception;
 use Illuminate\Auth\Events\Registered;
@@ -32,6 +33,12 @@ class RegisteredUserController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
             ]);
+
+            $chat = Chat::create([
+                'name' => 'Ваш самый первый чат',
+                'icon' => Chat::PATH_ICON . rand(1, 12) . ".png"
+            ]);
+
         } catch (Exception $e) {
             return response()->json([
                 'status' => 'error',
