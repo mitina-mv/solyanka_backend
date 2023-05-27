@@ -69,6 +69,11 @@ class ChatController extends Controller
             return response()->json($chat, HttpFoundationResponse::HTTP_BAD_REQUEST);
         }
 
+        foreach($chat->history() as $r)
+        {
+            $r->delete();
+        }
+
         try {
             $chat->forceDelete();
         } catch (Exception $e) {
