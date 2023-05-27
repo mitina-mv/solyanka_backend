@@ -59,11 +59,11 @@ Route::group(['middleware' => 'web'], function() {
         Route::delete('/{id}', [RoleFavouritesController::class, 'destroy']);
     });
 
-    Route::group(['prefix' => 'request'], function() {
+    Route::group(['prefix' => 'request', 'middleware' => 'auth'], function() {
         Route::post('/{chat_id}', [RequestController::class, 'create']);
     });
 
-    Route::group(['prefix' => 'profile'], function() {
+    Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function() {
         Route::get('/{id}', [UserController::class, 'read']);
         Route::post('/{id}', [UserController::class, 'update']);
     });
