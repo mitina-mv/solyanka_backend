@@ -36,7 +36,7 @@ class RoleController extends Controller
         ]);
 
         return response()->json([
-            $role,
+           'id' => $roleFavourite->id,
         ], Response::HTTP_OK);
     }
 
@@ -65,7 +65,6 @@ class RoleController extends Controller
         } catch (Exception $e) {
             $role->delete();
         }
-
 
         return response()->json([
             'id' => $id,
