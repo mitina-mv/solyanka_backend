@@ -28,11 +28,64 @@ class RoleFavouritesController extends Controller
 
     public function create($id)
     {
-        # code...
+        if($role = Role::find($id)) 
+        {
+            $roleFavourite = RoleFavourites::where([
+                'user_id' => Auth::user()->id,
+                'role_id' => $role->id
+            ])->first();
+
+            if(!isset($roleFavourite))
+            {
+                $roleFavourite = RoleFavourites::create([
+                    'user_id' => Auth::user()->id,
+                    'role_id' => $role->id
+                ]);
+
+                return response()->json([
+                    'message' => "Все хорошо"
+                ], Response::HTTP_OK);
+            } else {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => "Эта роль уже добавлена в избранное"
+                ], Response::HTTP_BAD_REQUEST);
+            }
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => "Роли с указанным ID не существует"
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     public function destroy($id)
     {
-        # code...
+        if($role = Role::find($id)) 
+        {
+            $roleFavourite = RoleFavourites::where([
+                'user_id' => Auth::user()->id,
+                'role_id' => $role->id
+            ])->first();
+
+            if(isset($roleFavourite))
+            {
+                $roleFavourite->delete();
+
+                return response()->json([
+                    'message' => "Все хорошо"
+                ], Response::HTTP_OK);
+            } else {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => "Этой роли нет в избранном"
+                ], Response::HTTP_BAD_REQUEST);
+            }
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => "Роли с указанным ID не существует"
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 }
