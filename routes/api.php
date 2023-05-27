@@ -44,7 +44,7 @@ Route::group(['middleware' => 'web'], function() {
         Route::get('/', [RoleController::class, 'list']);
         Route::get('/{id}', [RoleController::class, 'read']);
         Route::post('/create', [RoleController::class, 'create']);
-        Route::delete('/{id}', [RoleController::class, 'destroy'])
+        Route::delete('/{id}', [RoleController::class, 'destroy']);
     });
 
     // добавление роли в избранное 
