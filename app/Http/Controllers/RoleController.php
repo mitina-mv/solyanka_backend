@@ -49,7 +49,18 @@ class RoleController extends Controller
 
     public function destroy($id)
     {
-        $role = Role::find($id);
+        $role = Role::where([
+            'user_id' => Auth::user()->id,
+            'id' => $id
+        ])->firsl();
+
+        if(!$role)
+        {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Вы не имеете право удалять эту роль'
+            ], Response::HTTP_OK);
+        }
 
         // удаление роли из избранного
         $roleFavourite = RoleFavourites::where([
