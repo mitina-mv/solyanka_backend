@@ -39,8 +39,6 @@ class RegisteredUserController extends Controller
                 'icon' => Chat::PATH_ICON . rand(1, 12) . ".png",
                 'user_id' => $user->id
             ]);
-            
-
         } catch (Exception $e) {
             return response()->json([
                 'status' => 'error',
