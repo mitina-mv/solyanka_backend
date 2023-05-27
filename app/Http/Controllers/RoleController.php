@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
+use App\Models\RoleFavourites;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,8 +29,14 @@ class RoleController extends Controller
             'icon' => Role::PATH_ICON . $request->icon . '.png',
         ]);
 
+        // добавление роли в избранное
+        $roleFavourite = RoleFavourites::create([
+            'user_id' => Auth::user()->id,
+            'role_id' => $role->id
+        ]);
+
         return response()->json([
-            $role,
+           'id' => $roleFavourite->id,
         ], Response::HTTP_OK);
     }
 
@@ -45,6 +52,13 @@ class RoleController extends Controller
     public function destroy($id)
     {
         $role = Role::find($id);
+
+        // удаление роли из избранного
+        $roleFavourite = RoleFavourites::where([
+            'user_id' => Auth::user()->id,
+            'role_id' => $role->id
+        ]);
+        $roleFavourite->delete();
         
         try {
             $role->forceDelete();
