@@ -13,6 +13,7 @@ class RoleFavouritesController extends Controller
     public function list()
     {
         $user = Auth::user();
+        dd($user);
         if(!$user)
         {
             return response()->json([
@@ -25,8 +26,7 @@ class RoleFavouritesController extends Controller
             'user_id' => $user->id
         ])->get()->pluck('role_id')->all();
         
-        $roles = Role::whereIn('id', $rolesFavourites)
-        ->get();
+        $roles = Role::whereIn('id', $rolesFavourites)->get();
 
         return response()->json([
             $roles,
