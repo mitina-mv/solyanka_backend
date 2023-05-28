@@ -25,7 +25,7 @@ class ChatController extends Controller
         }
 
         $chats = Chat::where('user_id', $user->id)
-                ->select('id', 'name', 'icon')
+                ->select('id', 'name', 'icon', 'role_id')
                 ->get()->all();
 
         return response()->json($chats, HttpFoundationResponse::HTTP_OK);
