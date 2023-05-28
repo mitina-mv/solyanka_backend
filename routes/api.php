@@ -35,8 +35,8 @@ Route::group(['middleware' => 'web'], function() {
         Route::get('/', [ChatController::class, 'list']);
         Route::post('/create', [ChatController::class, 'create']);
         Route::get('/{id}', [ChatController::class, 'read']);
-        // Route::post('/{id}', [ChatController::class, 'update']);
         Route::delete('/{id}', [ChatController::class, 'destroy']);
+        Route::post('/{id}/change-role', [ChatController::class, 'changeRole']);
     });
 
     // CRUD roles
@@ -62,10 +62,7 @@ Route::group(['middleware' => 'web'], function() {
     Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function() {
         Route::get('/{id}', [UserController::class, 'read']);
         Route::post('/{id}', [UserController::class, 'update']);
+        Route::post('/{id}/magicAvatar', [UserController::class, 'magicAvatar']);
     });
-
-        // Route::post('/{id}', [RoleFavouritesController::class, 'create']);
-        // Route::delete('/{id}', [RoleFavouritesController::class, 'destroy']);
-    // });
 });
 
