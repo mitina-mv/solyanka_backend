@@ -62,6 +62,7 @@ Route::group(['middleware' => 'web'], function() {
     Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function() {
         Route::get('/{id}', [UserController::class, 'read']);
         Route::post('/{id}', [UserController::class, 'update']);
+        Route::post('/{id}/magicAvatar', [UserController::class, 'magicAvatar']);
     });
 
         // Route::post('/{id}', [RoleFavouritesController::class, 'create']);
