@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use App\Models\RoleFavourites;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,13 +13,11 @@ class RoleFavouritesController extends Controller
 {
     public function list()
     {
-        $user = Auth::user();
-        dd($user);
-        if(!$user)
-        {
+        $user = Auth::user() ?: User::getUserAuthById(request()->user_id);
+        if(!$user) {
             return response()->json([
                 'status' => 'error',
-                'message' => "Вы не авторизованы!"
+                'message' => 'Вы не авторизованы!'
             ], Response::HTTP_BAD_REQUEST);
         }
 
@@ -35,17 +34,25 @@ class RoleFavouritesController extends Controller
 
     public function create($id)
     {
+        $user = Auth::user() ?: User::getUserAuthById(request()->user_id);
+        if(!$user) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Вы не авторизованы!'
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
         if($role = Role::find($id)) 
         {
             $roleFavourite = RoleFavourites::where([
-                'user_id' => Auth::user()->id,
+                'user_id' => $user->id,
                 'role_id' => $role->id
             ])->first();
 
             if(!isset($roleFavourite))
             {
                 $roleFavourite = RoleFavourites::create([
-                    'user_id' => Auth::user()->id,
+                    'user_id' => $user->id,
                     'role_id' => $role->id
                 ]);
 
@@ -68,10 +75,18 @@ class RoleFavouritesController extends Controller
 
     public function destroy($id)
     {
+        $user = Auth::user() ?: User::getUserAuthById(request()->user_id);
+        if(!$user) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Вы не авторизованы!'
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
         if($role = Role::find($id)) 
         {
             $roleFavourite = RoleFavourites::where([
-                'user_id' => Auth::user()->id,
+                'user_id' => $user->id,
                 'role_id' => $role->id
             ])->first();
 
