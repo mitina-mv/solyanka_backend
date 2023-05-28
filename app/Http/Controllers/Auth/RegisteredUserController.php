@@ -32,6 +32,7 @@ class RegisteredUserController extends Controller
             $user = User::create([
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
+                'picture' => Chat::PATH_ICON . rand(1, 12) . '.png'
             ]);
 
             $chat = Chat::create([

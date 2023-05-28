@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ChatCreateRequest;
 use App\Models\Chat;
 use App\Models\Request as ModelsRequest;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
@@ -12,11 +13,17 @@ use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
 {
-   
     // возвращает список чатов пользователя
     public function list()
     {   
-        $user = Auth::user();
+        $user = Auth::user() ?: User::getUserAuthById(request()->user_id);
+        if(!$user) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Вы не авторизованы!'
+            ], HttpFoundationResponse::HTTP_BAD_REQUEST);
+        }
+
         $chats = Chat::where('user_id', $user->id)
                 ->select('id', 'name', 'icon')
                 ->get()->all();
@@ -29,6 +36,14 @@ class ChatController extends Controller
     // чат пользователя по id
     public function create(ChatCreateRequest $request)
     {
+        $user = Auth::user() ?: User::getUserAuthById(request()->user_id);
+        if(!$user) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Вы не авторизованы!'
+            ], HttpFoundationResponse::HTTP_BAD_REQUEST);
+        }
+
         $chat = Chat::create([
             'name' => $request->name,
             'icon' => Chat::PATH_ICON . $request->icon . '.png',
@@ -88,7 +103,7 @@ class ChatController extends Controller
 
     private function getChat($id)
     {
-        $user = Auth::user();
+        $user = Auth::user() ?: User::getUserAuthById(request()->user_id);
         
         if($user)
         {
