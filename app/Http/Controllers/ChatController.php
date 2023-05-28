@@ -28,9 +28,7 @@ class ChatController extends Controller
                 ->select('id', 'name', 'icon')
                 ->get()->all();
 
-        return response()->json([
-            $chats,
-        ], HttpFoundationResponse::HTTP_OK);
+        return response()->json($chats, HttpFoundationResponse::HTTP_OK);
     }
 
     // чат пользователя по id
@@ -50,9 +48,7 @@ class ChatController extends Controller
             'user_id' => Auth::user()->id
         ]);
 
-        return response()->json([
-            $chat,
-        ], HttpFoundationResponse::HTTP_OK);
+        return response()->json($chat, HttpFoundationResponse::HTTP_OK);
     }
 
     public function read($id)
