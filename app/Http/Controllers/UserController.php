@@ -20,6 +20,7 @@ class UserController extends Controller
         }
 
         $user = User::find($id);
+        
         $fields = $request->validated();
         $user->update($fields);
 
@@ -30,10 +31,15 @@ class UserController extends Controller
 
     public function read($id)
     {
-        
+        if(Auth::user()->id != $id){
+            return response()->json([
+                'status' => 'error',
+                'message' => "Вы не имеете право смотреть этот профиль"
+            ], Response::HTTP_BAD_REQUEST);
+        }  
     }
 
-    public function magicAvatar($id)
+    public static function magicAvatar($id)
     {
         
     }
