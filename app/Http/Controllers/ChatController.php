@@ -125,4 +125,23 @@ class ChatController extends Controller
         }
 
     }
+
+    public function changeRole(Request $request, $id)
+    {
+        $chat = $this->getChat($id);
+
+        if(isset($chat['status']))
+        {
+            return response()->json($chat, HttpFoundationResponse::HTTP_BAD_REQUEST);
+        }
+
+        $chat->update([
+            'role_id' => $request->role_id
+        ]);
+
+        return response()->json([
+            'id' => $id,
+            'message' => 'Роль установлена'
+        ], HttpFoundationResponse::HTTP_OK);
+    }
 }

@@ -19,6 +19,7 @@ class Chat extends Model
         'name',
         'icon',
         'user_id',
+        'role_id',
     ];
 
     public function history()
