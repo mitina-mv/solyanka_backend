@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules;
@@ -14,7 +15,8 @@ class UserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::user() ? true : false;
+        $user = Auth::user() ?: User::getUserAuthById(request()->user_id);
+        return $user ? true : false;
     }
 
     /**

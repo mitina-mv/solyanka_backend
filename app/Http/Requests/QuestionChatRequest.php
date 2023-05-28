@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\Chat;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Validation\Rule as ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -17,7 +18,10 @@ class QuestionChatRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if(Auth::user())
+        
+        $user = Auth::user() ?: User::getUserAuthById(request()->user_id);
+
+        if($user)
         {
             return true;
         }
