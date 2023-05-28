@@ -44,8 +44,8 @@ class ChatController extends Controller
 
         $chat = Chat::create([
             'name' => $request->name,
-            'icon' => Chat::PATH_ICON . $request->icon . '.png',
-            'user_id' => Auth::user()->id
+            'icon' => rand(1, 12) . '.png',
+            'user_id' => $user->id
         ]);
 
         return response()->json($chat, HttpFoundationResponse::HTTP_OK);

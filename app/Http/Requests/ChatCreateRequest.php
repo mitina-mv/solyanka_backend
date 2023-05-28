@@ -26,10 +26,6 @@ class ChatCreateRequest extends FormRequest
                 'required',
                 'string', 'max:255'
             ],
-            'icon' => [
-                'required',
-                'string', 'max:255'
-            ],
         ];
     }
 }

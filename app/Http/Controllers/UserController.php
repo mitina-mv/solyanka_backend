@@ -70,7 +70,7 @@ class UserController extends Controller
         }
 
         $user->update([
-            'picture' => Chat::PATH_ICON . rand(1, 12) . '.png'
+            'picture' => rand(1, 12) . '.png'
         ]);
 
         return response()->json([
