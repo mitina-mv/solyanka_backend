@@ -27,9 +27,7 @@ class RoleFavouritesController extends Controller
         
         $roles = Role::whereIn('id', $rolesFavourites)->get();
 
-        return response()->json([
-            $roles,
-        ], Response::HTTP_OK);
+        return response()->json($roles, Response::HTTP_OK);
     }
 
     public function create($id)

@@ -51,9 +51,7 @@ class RoleController extends Controller
     {
         $role = Role::find($id);
 
-        return response()->json([
-            $role,
-        ], Response::HTTP_OK);
+        return response()->json($role, Response::HTTP_OK);
     }
 
     public function destroy($id)
