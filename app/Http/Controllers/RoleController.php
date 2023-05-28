@@ -33,12 +33,12 @@ class RoleController extends Controller
             'name' => $request->name,
             'text' => $request->text,
             'user_id' => $user->id,
-            'icon' => Role::PATH_ICON . $request->icon . '.png',
+            'icon' => $request->icon . '.png',
         ]);
 
         // добавление роли в избранное
         $roleFavourite = RoleFavourites::create([
-            'user_id' => Auth::user()->id,
+            'user_id' => $user->id,
             'role_id' => $role->id
         ]);
 
